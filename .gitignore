@@ -1,0 +1,4 @@
+node_modules
+error/
+prisma/*.db
+prisma/migrations/
