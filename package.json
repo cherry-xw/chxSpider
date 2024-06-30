@@ -6,7 +6,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "cross-env NODE_ENV=config node --no-warnings --loader ./dll/loader.js src/index.ts",
-    "qyyjt": "yarn start -w=qyyjt",
+    "process": "yarn start -m=config",
     "postinstall": "prisma generate",
     "db_init": "prisma migrate dev --name init",
     "db_reset": "prisma migrate reset --force",

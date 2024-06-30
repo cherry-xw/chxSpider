@@ -7,38 +7,29 @@ import readline from 'readline';
 import chalk from 'chalk';
 import dayjs from 'dayjs';
 import { defaults } from 'lodash-es';
-import * as baseConfig from '@/../config.ts';
 
 /**
  * 异步等待
- * @param time 等待毫秒数
+ * @param time 等待毫秒数 默认1000
  * @returns void
  */
-export function wait(time: number) {
+export function wait(time: number = 1000) {
   return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+/**
+ * 异步等待
+ * @param time 随机抖动毫秒下限 默认1000
+ * @param noice 随机抖动毫秒数上限 默认500
+ * @returns void
+ */
+export function waitRandom(time: number = 1000, noice: number = 500) {
+  return new Promise((resolve) => setTimeout(resolve, time + Math.random() * noice));
 }
 
 let threadConfig = parseInt(process.env.THREAD ?? '1');
 if (isNaN(threadConfig)) {
   threadConfig = 1;
-}
-
-/**
- * 指令包装函数
- * @param globalData 全局配置数据
- * @returns 操作函数
- */
-export function wrap<T>(
-  globalData: T
-) {
-  return async (payload: Argv<Payload>) => {
-    console.log(chalk.bgCyan.black(`启动：${dayjs().format('MM/DD HH:mm:ss')}`));
-
-    const browser = new Browser(true);
-    
-    console.log(chalk.gray('\n全部操作完成'));
-    process.exit(0);
-  };
 }
 
 type MultiEventCtrlOptions<T, V> = {
@@ -166,18 +157,4 @@ export function runInterval(fn: (doneFn: () => void) => void, time: number) {
       await fn(done);
     }, time);
   });
-}
-
-export function readConfig(key: string) {
-  if (key) {
-    const str = process.env[key];
-    if (str) {
-      if (str.startsWith('config->')) {
-        // @ts-ignore
-        return (baseConfig[str.substring(8)] as string) || '';
-      }
-      return str;
-    }
-  }
-  return '';
 }

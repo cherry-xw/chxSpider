@@ -17,7 +17,7 @@ class Browser {
   private _latestUUID: string = '';
   private _idUsedTimeCount: Record<string, number> = {};
   device = iPad;
-  constructor(proxy = false, show = process.env.SHOW_BROWSER === 'true') {
+  constructor(proxy = false, show = false) {
     // 无头模式，即不显示浏览器界面
     const option: PuppeteerLaunchOptions = {
       headless: show ? false : 'new',
