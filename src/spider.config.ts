@@ -7,20 +7,20 @@ const eventList: EventList = [
     id: 'baidu',
     input: 'https://www.baidu.com'
   },
-  {
-    type: 'login',
-    mode: 'manual',
-    id: 'qyyjt'
-  },
   // {
   //   type: 'login',
-  //   mode: 'auto',
-  //   id: 'qcc',
-  //   input: {
-  //     userName: "123",
-  //     password: "123"
-  //   }
-  // }
+  //   mode: 'manual',
+  //   id: 'qcc'
+  // },
+  {
+    type: 'login',
+    mode: 'auto',
+    id: 'qyyjt',
+    input: {
+      userName: "15751835522",
+      password: "123456"
+    }
+  },
   {
     type: 'visit',
     id: 'qyyjt',

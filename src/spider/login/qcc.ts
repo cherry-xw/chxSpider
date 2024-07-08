@@ -32,7 +32,7 @@ export default async function qccLogin(browser: Browser, mode: AutoLogin['mode']
     await waitRandom();
     await page.focus(".password-login_wrapper input[name='password']");
     await browser.input(data!.password, 'qcc');
-    const loginBtn = await loginDialog.$('(".password-login_wrapper button.login-btn")');
+    const loginBtn = await loginDialog.$('.password-login_wrapper button.login-btn');
     if (!loginBtn) {
       console.log('未找到登录按钮');
       return;

@@ -27,11 +27,6 @@ export function waitRandom(time: number = 1000, noice: number = 500) {
   return new Promise((resolve) => setTimeout(resolve, time + Math.random() * noice));
 }
 
-let threadConfig = parseInt(process.env.THREAD ?? '1');
-if (isNaN(threadConfig)) {
-  threadConfig = 1;
-}
-
 type MultiEventCtrlOptions<T, V> = {
   fourceStopCheck: (taskListOrigin: T) => Promise<boolean> | boolean;
   whichNext: (taskListOrigin: T, executingTask: V[]) => number;
