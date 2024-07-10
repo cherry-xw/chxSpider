@@ -17,8 +17,8 @@ const eventList: EventList = [
     mode: 'auto',
     id: 'qyyjt',
     input: {
-      userName: "15751835522",
-      password: "123456"
+      userName: '15751835522',
+      password: '123456'
     }
   },
   {
@@ -30,10 +30,26 @@ const eventList: EventList = [
   {
     type: 'select',
     id: 'qyyjt',
-    input: '.summaryWrapper .titleWrapper .title span',
+    input: '#content > article > header > h1',
     handle: 'text',
     processTag: 'companyName'
   }
+  // {
+  //   type: 'dbConnect',
+  //   id: 'mysql',
+  //   input: {
+  //     host: '10.105.109.83',
+  //     port: 3306,
+  //     user: 'root',
+  //     password: '123456',
+  //     database: 'test'
+  //   }
+  // },
+  // {
+  //   type: 'database',
+  //   id: 'mysql',
+  //   input: "INSERT INTO `test`.`company` (`name`) VALUES ('{{companyName}}')"
+  // }
 ];
 
 export default eventList;

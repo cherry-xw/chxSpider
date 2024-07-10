@@ -3,9 +3,12 @@ import init from './init.ts';
 import qyyjtLogin from './login/qyyjt.ts';
 import qccLogin from './login/qcc.ts';
 import { wait, waitRandom } from '@/util/common.ts';
+import { execMySQL, mysqlConnect } from '@/db/mysql.ts';
+import { isObjectLike } from 'lodash';
 
 async function runSpiser(eventList: EventList) {
   let browser: Browser;
+  // 爬取数据
   const processDataMap: Record<string, any> = {};
   for (let index = 0; index < eventList.length; index++) {
     const event = eventList[index];
@@ -43,6 +46,27 @@ async function runSpiser(eventList: EventList) {
         await qyyjtLogin(browser!, event.mode, event.input);
       } else if (event.id === 'qcc') {
         await qccLogin(browser!, event.mode, event.input);
+      }
+    } else if (event.type === 'dbConnect') {
+      if (event.id === 'mysql') {
+        try {
+          await mysqlConnect(event.input);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    } else if (event.type === 'database') {
+      if (event.id === 'mysql') {
+        const data = await execMySQL(
+          event.input.replace(/(\$\{[A-z0-9_]+\})/g, (_, key) => {
+            return processDataMap[key];
+          })
+        );
+        if (isObjectLike(data)) {
+          console.log(JSON.stringify(data, null, 2));
+        } else {
+          console.log(data);
+        }
       }
     }
     if (event.wait) {

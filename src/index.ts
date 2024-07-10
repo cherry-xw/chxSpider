@@ -1,7 +1,7 @@
 import mri from 'mri';
 import chalk from 'chalk';
 import '@/configInit.ts';
-import '@/util/prisma.ts';
+import '@/db/prisma.ts';
 import runTest from './test.ts';
 import runSpiser from './spider/index.ts';
 import spiderConfig from './spider.config.ts';

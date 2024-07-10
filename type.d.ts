@@ -58,11 +58,29 @@ declare global {
     processTag: string;
   }>;
 
+  type DBConnect = WaitMixin<{
+    type: 'dbConnect';
+    id: 'sqlite' | 'mysql';
+    input: {
+      /** 数据库地址 */
+      host: string;
+      /** 数据库端口 */
+      port: number;
+      /** 数据库名称 */
+      database: string;
+      /** 用户名 */
+      user: string;
+      /** 密码 */
+      password: string;
+    }
+  }>;
+
   type DataBase = WaitMixin<{
+    id: 'sqlite' | 'mysql';
     /** 数据库操作 */
     type: 'database';
     /** before 取前一步操作， string使用具体的前面定义的processTag */
-    input: 'before' | string;
+    input: string;
     /**
      * 操作语句
      * 如果包含${processTag}，则会将processTag替换为具体的前面操作结果注入
@@ -78,6 +96,6 @@ declare global {
       input?: Parameters<typeof init>[0];
     }>,
     Visit,
-    ...(Visit | Selector | DataBase | AutoLogin)[]
+    ...(Visit | Selector | DataBase | AutoLogin | DBConnect)[]
   ];
 }
